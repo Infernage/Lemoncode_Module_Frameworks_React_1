@@ -1,3 +1,4 @@
+import { Button, Typography } from "@material-ui/core";
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 
@@ -6,9 +7,11 @@ export const DetailPage: React.FC = () => {
 
   return (
     <>
-      <h2>Hello from Detail page</h2>
-      <h3>User Id: {id}</h3>
-      <Link to="/list">Back to list page</Link>
+      <Typography variant="h4">Hello from Detail page</Typography>
+      <Typography variant="h6">User Id: {id}</Typography>
+      <Button variant="text">
+        <Link to="/list">Back to list page</Link>
+      </Button>
     </>
   );
 };
