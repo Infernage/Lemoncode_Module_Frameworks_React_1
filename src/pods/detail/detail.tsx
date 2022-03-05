@@ -10,7 +10,7 @@ export const DetailPage: React.FC = () => {
       <Typography variant="h4">Hello from Detail page</Typography>
       <Typography variant="h6">User Id: {id}</Typography>
       <Button variant="text">
-        <Link to="/list">Back to list page</Link>
+        <Link to="..">Back to list page</Link>
       </Button>
     </>
   );

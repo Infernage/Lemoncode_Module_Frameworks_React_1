@@ -1,7 +1,7 @@
 import { alpha, createTheme, InputBase } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import React, { CSSProperties, useContext } from "react";
-import { ListContext } from "./list.context";
+import { ListContext } from "../list/context";
 
 const defaultTheme = createTheme();
 
@@ -27,7 +27,7 @@ export const FilterInput: React.FC = () => {
             }}
           />
         }
-        value={filter}
+        value={filter ?? ""}
         onChange={(e) => setFilter(e.target.value)}
       />
     </div>

@@ -1,20 +1,26 @@
 import React from "react";
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
-import {LoginPage} from "./login";
-import {ListPage} from "./list";
-import {DetailPage} from "./detail";
-import {ListContextProvider} from "./list.context";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { GlobalContextProvider } from "./global.context";
+import { DetailPage } from "./pods/detail/detail";
+import { GitHubPage } from "./pods/github/github";
+import { LoginPage } from "./pods/login/login";
+import { RickyMortyPage } from "./pods/rickyMorty/rickyMorty";
 
 export const App = () => {
-    return (
-        <ListContextProvider>
-            <Router>
-                <Routes>
-                    <Route path="/" element={<LoginPage/>}/>
-                    <Route path="/list" element={<ListPage/>}/>
-                    <Route path="/detail/:id" element={<DetailPage/>}/>
-                </Routes>
-            </Router>
-        </ListContextProvider>
-    );
+  return (
+    <GlobalContextProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<LoginPage />}>
+            <Route path="github" element={<GitHubPage />}>
+              <Route path="detail/:id" element={<DetailPage />} />
+            </Route>
+            <Route path="rickyMorty" element={<RickyMortyPage />}>
+              <Route path="detail/:id" element={<DetailPage />} />
+            </Route>
+          </Route>
+        </Routes>
+      </Router>
+    </GlobalContextProvider>
+  );
 };
