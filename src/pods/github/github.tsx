@@ -8,17 +8,8 @@ import {
   TEngineResult,
   TGlobalContext,
 } from "../../global.context";
+import { validateResponse } from "../../httpUtils";
 import { TMember } from "./types";
-
-const validateResponse = async (
-  response: Response
-): Promise<Response | never> => {
-  if (!response.ok) {
-    throw new Error(await response.text());
-  }
-
-  return response;
-};
 
 const isNextLinkFromHeaders = (response: Response): boolean => {
   const header = response.headers.get("link");
@@ -47,19 +38,31 @@ const executor: TGlobalContext["searchEngineExecutor"] = (
       };
     });
 
+const detailsUrlMapper = (id: string) => `https://api.github.com/users/${id}`;
+
+const idSelector = (element: TElement) => element.name;
+
 export const GitHubPage = () => {
   const outlet = useOutlet();
-  const { setSearchEngineExecutor, setSearchEngine, searchEngine } =
-    useContext(GlobalContext);
+  const {
+    setSearchEngineExecutor,
+    setSearchEngine,
+    searchEngine,
+    setDetailsUrlMapper,
+    setIdSelector,
+  } = useContext(GlobalContext);
+
   React.useEffect(() => {
     setSearchEngine("Github");
     setSearchEngineExecutor(() => executor);
+    setDetailsUrlMapper(() => detailsUrlMapper);
+    setIdSelector(() => idSelector);
   }, []);
 
   return (
     <>
       <ListContextProvider>
-        {outlet ?? (searchEngine && <List filter={"lemoncode"}></List>)}
+        {outlet ?? (searchEngine && <List filter={"lemoncode"} />)}
       </ListContextProvider>
     </>
   );
